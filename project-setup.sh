@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Nome della cartella del progetto
 echo Scrivi il nome della cartella del progetto:
 read varFolderName
@@ -10,44 +9,30 @@ echo Scrivi il nome del Model:
 read varModel
 varAdminController='Admin/'$varModel'Controller'
 wait
-
-cd $varFolderName
+mkdir -p "$varFolderName"
+cd "$varFolderName"
 
 # Elenco istruzioni
-composer create-project --prefer-dist laravel/laravel:^7.0 . #creazione base del progetto
-
+composer create-project --prefer-dist laravel/laravel:^7.0 .
+wait
+php artisan key:generate
+wait
+composer require barryvdh/laravel-debugbar --dev
+wait
+composer require fakerphp/faker
+wait
+composer require laravel/ui:^2.4
+wait
+php artisan ui bootstrap
+wait
+php artisan ui vue --auth
+wait
+php artisan make:controller --model=$varModel $varAdminController
 wait
 
-npm install #installazione npm
-
+# Avvio npm watch e server
+npm install
 wait
-
-php artisan key:generate #generazione key
-
+npm run dev
 wait
-
-composer require barryvdh/laravel-debugbar --dev #installazione debug bar
-
-wait
-
-composer require fakerphp/faker #installazione faker
-
-wait
-
-composer require laravel/ui:^2.4 #installazione Laravel UI 2.4
-
-wait
-
-php artisan ui vue --auth #installazione Vue UI
-
-wait
-
-php artisan make:controller --model=Model/$varModel $varAdminController #creazione model e controller 
-
-wait
-
-php artisan make:migration "create_"$varModel"_table" #creazione migration
-
-wait
-
-php artisan make:seeder $varModelSeeder #creazione seeder
+php artisan serve
