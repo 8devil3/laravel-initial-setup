@@ -13,26 +13,43 @@ mkdir -p "$varFolderName"
 cd "$varFolderName"
 
 # Elenco istruzioni
-composer create-project --prefer-dist laravel/laravel:^7.0 .
+composer create-project --prefer-dist laravel/laravel:^7.0 . #creazione base del progetto
 wait
-php artisan key:generate
+
+php artisan key:generate #generazione key
 wait
-composer require barryvdh/laravel-debugbar --dev
+
+composer require barryvdh/laravel-debugbar --dev #installazione debug bar
 wait
-composer require fakerphp/faker
+
+composer require fakerphp/faker #installazione fakerphp
 wait
-composer require laravel/ui:^2.4
+
+composer require laravel/ui:^2.4 #installazione Laravel UI
 wait
-php artisan ui bootstrap
+
+php artisan ui bootstrap #scaffolding Bootstrap
 wait
-php artisan ui vue --auth
+
+php artisan ui vue --auth #installazione Vue UI
 wait
-php artisan make:controller --model=$varModel $varAdminController
+
+php artisan make:controller --model=$varModel $varAdminController #creazione model e controller
+wait
+
+php artisan make:migration "create_"$varModel"_table" #creazione migration
+wait
+
+php artisan make:seeder $varModelSeeder #creazione seeder 
+wait
+
+npm install #ricompilazione npm
+wait
+
+composer dump-autoload #ricompilazione composer
 wait
 
 # Avvio npm watch e server
-npm install
-wait
-npm run dev
+npm run watch
 wait
 php artisan serve
