@@ -7,7 +7,7 @@ wait
 # Assegnazione nome del Model
 echo Scrivi il nome del Model:
 read varModel
-varAdminController='Admin/'$varModel'Controller'
+varAdminController='Admin/'${varModel^}'Controller'
 wait
 mkdir -p "$varFolderName"
 cd "$varFolderName"
@@ -34,13 +34,13 @@ wait
 php artisan ui vue --auth #installazione Vue UI
 wait
 
-php artisan make:controller --model=$varModel $varAdminController #creazione model e controller
+php artisan make:controller --model=${varModel^} $varAdminController #creazione model e controller
 wait
 
 php artisan make:migration "create_"$varModel"_table" #creazione migration
 wait
 
-php artisan make:seeder $varModelSeeder #creazione seeder 
+php artisan make:seeder ${varModel^}"Seeder" #creazione seeder 
 wait
 
 npm install #ricompilazione npm
